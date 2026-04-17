@@ -3,101 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="script.CSS">
   <title>Signup Form</title>
 </head>
 <body>
-<form onsubmit="return validateForm()">
+
+  <video autoplay muted loop playsinline id="background-video" poster="fallback-image.jpg">
+  <source src="WATERFALL.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+<img id="ISKOCRACY" class="responsive-img" src="ISKOCACY.png" alt="ISKOCACY">
+
+
+  <header>
+  <h1>SIGNUP FORM</h1>
+  <h2>Fill out the form below to create an account</h2>
+</header>
+
+
+<main>
+  
+
+<form onsubmit="validateForm(event); return false;">
 
   <!-- FULL NAME -->
     
-   <label for="fullName">Enter your fullname:</label> <br>
-  <input type="text" id="fullName" onfocus="this.style.background='lightyellow'">
-  <span id="FnameError"></span>
+   <label class="form-label" for="fullName">Enter your fullname:</label> <br>
+  <input class= "inputbox" type="text" id="fullName" onfocus="this.style.background='lightyellow';">
+  <span class="Error" id="FnameError"></span>
 
   <!-- BIRTHDATE -->
    
-   <br> <label for="birthdate">Enter your birthdate:</label><br>
-  <input type="date" id="birthdate">
-  <span id="BdateError"></span>
+   <br> <label class="form-label" for="birthdate">Enter your birthdate:</label><br>
+  <input class="inputbox" type="date" id="birthdate">
+  <span class="Error" id="BdateError"></span>
 
   <!-- SEX (RADIO GROUP) -->
   
-   <br><label for="sex">Enter your sex:</label><br>
-    <input type="radio" id="male" name="sex" value="male">
+   <br><label class="form-label" for="sex">Enter your sex:</label><br>
+    <input class="inputbox" type="radio" id="male" name="sex" value="male">
   <label for="male">Male</label><br>
-  <input type="radio" id="female" name="sex" value="female">
+  <input class="inputbox" type="radio" id="female" name="sex" value="female">
   <label for="female">Female</label><br>
-  <input type="radio" id="other" name="sex" value="other">
+  <input class="inputbox" type="radio" id="other" name="sex" value="other">
   <label for="other">Other</label> <br>
-  <span id="sexError"></span>
+  <span class="Error" id="sexError"></span>
 
   <!-- EMAIL -->
   
-  <br> <label for="email">Enter your email:</label><br>
-  <input type="email" id="email">
-  <span id="EmailError"></span>
+  <br> <label class="form-label" for="email">Enter your email:</label><br>
+  <input class ="inputbox" type="email" id="email">
+  <span class="Error" id="EmailError"></span>
 
   <!-- USERNAME -->
  
-   <br><label for="username">Enter a username:</label><br>
-  <input type="text" id="username">
-  <span id="UsernameError"></span>
+   <br><label class="form-label" for="username">Enter a username:</label><br>
+  <input class="inputbox" type="text" id="username">
+  <span class="Error" id="UsernameError"></span>
 
   <!-- PASSWORD -->
 
  
-  <br><label for="password">Enter your password:</label><br>
-  <input type="password" id="password">
-  <span id="PasswordError"></span>
+  <br><label class="form-label" for="password">Enter your password:</label><br>
+  <input class="inputbox" type="password" id="password">
+  <span class="Error" id="PasswordError"></span>
 
   
   <!-- CONFIRM PASSWORD -->
    
-   <br><label for="confirmPassword">Confirm your password:</label><br>
-  <input type="password" id="confirmPassword">
-  <span id="confirmPasswordError"></span>
+   <br><label class="form-label" for="confirmPassword">Confirm your password:</label> <br>
+  <input class="inputbox" type="password" id="confirmPassword" onblur="this.style.background='lightyellow';">
+  <span class="Error" id="confirmPasswordError"></span>
 
   <!-- DROPDOWN -->
   
 
-   <br><label>What cuisine interests you most?</label><br>
-  <select id="cuisine">
+   <br><label class="form-label">Would you volunteer or donate to programs or organizations (e.g. WHO) surrounding SDG 3: Good health and Well-Being?</label><br>
+  <select class="inputbox" id="prog">
   <option value="">-- choose --</option>
-  <option value="filipino">Filipino</option>
-  <option value="japanese">Japanese</option>
+  <option value="yes">YES</option>
+  <option value="no">NO</option>
 </select>
-<span id="cuisineError"></span>
+<span class="Error" id="progError"></span>
 
   <!-- CHECKBOX -->
 
-   <br><label for="diet">Enter your dietary preferences:</label><br>
-  <input type="checkbox" name="diet" value="vegan"> Vegan
-<input type="checkbox" name="diet" value="halal"> Halal
-<input type="checkbox" name="diet" value="gluten"> Gluten-free
-<span id="dietError"></span>
+   <br><label class="form-label" for="program">Which among these Organizations are you aware of:</label><br>
+  <input type="checkbox" name="program" value="WORLD HEALTH ORGANIZATION (WHO)"> WORLD HEALTH ORGANIZATION <b> (WHO)</b>
+ <br><input  type="checkbox" name="program" value="UNITED NATIONS CHILDREN'S FUND (UNICEF)"> UNITED NATIONS CHILDREN'S FUND  <b>(UNICEF)</b>
+ <br><input type="checkbox" name="program" value="ZUELLIG FAMILY FOUNDATION, INC. (ZFFI)"> ZUELLIG FAMILY FOUNDATION, INC.  <b>(ZFFI)</b>
+<span class="Error" id="programError"></span>
 
   <!-- RADIO BUTTONS -->
 
-   <br><label for="cook" >“How many times a week do you cook?” (radio buttons)</label><br>
-   <input type="radio" id="cook1" name="cook" value="0-1">
-  <label for="cook1">0-1</label><br>
-  <input type="radio" id="cook2" name="cook" value="2-3">
-  <label for="cook2">2-3</label><br>
-  <input type="radio" id="cook3" name="cook" value="4-5">
-  <label for="cook3">4-5</label><br>
-  <input type="radio" id="cook4" name="cook" value="6+">
-  <label for="cook4">6-7</label>
-  <span id="cookError"></span>
+   <br><br><label class="form-label" for="rad" >“How many times have you donated blood before?”</label><br>
+   <input  type="radio" id="rad1" name="rad" value="Never">
+  <label for="rad1">Never</label><br>
+  <input  type="radio" id="rad2" name="rad" value="Once or twice">
+  <label for="rad2">Once or twice</label><br>
+  <input  type="radio" id="rad3" name="rad" value="Three to five times">
+  <label for="rad3">Three to five times</label><br>
+  <input  type="radio" id="rad4" name="rad" value="Six or more">
+  <label for="rad4">Six or more</label>
+  <span class="Error" id="radError"></span>
 
-  <button type="submit">Submit</button>
+   <button id="submitBtn" type="submit">SUBMIT</button>
 
-  <p id="successMessage"></p>
+ 
 
    <nav>
-    <a href="INDEX.html">HOME PAGE</a>
+    <a id = "home-link" href="INDEX.html">HOME PAGE</a>
     </nav>
 </form>
+</main>
+ <p id="successMsg"> Hi friendss </p>
 
 <script src="script.js"></script>
+
 </body>
-</html>
+</html> 
