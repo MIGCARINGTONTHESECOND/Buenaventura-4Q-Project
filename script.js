@@ -1,235 +1,173 @@
-function validateForm() {
-
-    // ===== assign Elements =====
-
-    const fullNameInput = document.getElementById("fullName");
-    const emailInput = document.getElementById("email");
-    const sexRadios = document.getElementsByName("sex");
-    const usernameInput = document.getElementById("username");
-    const passwordInput = document.getElementById("password");
-    const confirmPasswordInput = document.getElementById("confirmPassword");
-    const cuisineInput = document.getElementById("cuisine");
-    const birthdateInput = document.getElementById("birthdate");
-
-    // ===== clear or erases errors ====
-
-    document.getElementById("EmailError").innerHTML = "";
-    document.getElementById("UsernameError").innerHTML = "";
-    document.getElementById("PasswordError").innerHTML = "";
-    document.getElementById("confirmPasswordError").innerHTML = "";
-    document.getElementById("cuisineError").innerHTML = "";
-    document.getElementById("dietError").innerHTML = "";
-    document.getElementById("successMessage").innerHTML = "";
-    document.getElementById("BdateError").innerHTML = "";
-    document.getElementById("sexError").innerHTML = "";
-    document.getElementById("FnameError").innerHTML = "";
-    document.getElementById("cookError").innerHTML = "";
-
-    // ===== validation assigned to true initially =====
-    let isValid = true;
-
-    // ===== GET VALUES =====
-
-    let fullName = fullNameInput.value.trim();
-    let email = emailInput.value.trim();
-    let username = usernameInput.value.trim();
-    let password = passwordInput.value;
-    let confirmPassword = confirmPasswordInput.value;
-    let cuisine = cuisineInput.value;
-    let birthdate = birthdateInput.value;
-
-    // ===== PERSONAL INFORMATIONN ===========================
-
-    // Full Name checker
-    if (fullName.length === 0) {
-        document.getElementById("FnameError").innerHTML =
-            "Full name is required.";
-        isValid = false;
-    } 
-    
-    if (fullName.length>0) {
-        if (fullName.length < 2) {
-        document.getElementById("FnameError").innerHTML =
-            "Full name must be at least 2 characters.";
-        isValid = false;
-    }
+body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      min-height: 100vh;
     }
 
-
-    // Birthdate checker
-
-    if (birthdate === "") {
-        document.getElementById("BdateError").innerHTML =
-            "Please enter your birthdate.";
-        isValid = false;
-
-    } else {
-        let today = new Date();
-        let birth = new Date(birthdate);
-        //subtracts the birth year from the current year to get the age
-        let age = today.getFullYear() - birth.getFullYear();
-
-        // checks if less than 13 years old and if their birthday not yet happened this year, I decided to subtract 1 from age
-        let monthchecker = today.getMonth() - birth.getMonth();
-        if (
-            monthchecker < 0 ||
-            (monthchecker === 0 && today.getDate() < birth.getDate())
-        ) {
-            age = age -1;
-        }
-
-        if (age < 13) {
-            document.getElementById("BdateError").innerHTML = "You must be at least 13 years old.";
-            isValid = false;
-        }
+    #background-video {  /*took from past project*/
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      object-fit: cover;
     }
 
-    // Check Sex using radio buttons, use sexchosen to scan if there is a chosen sex. If false, it will say error and set isValid to false.
-    let sexChosen = false;
+   
 
-    for (let i = 0; i < sexRadios.length; i++) {
-        if (sexRadios[i].checked) {
-            sexChosen = true;
-        }
+#ISKOCRACY { /*TOOK FROM PAST PROJECT*/
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 100px;
+  height: 100px;
+  z-index: +2; 
+  margin-left: 100px;
+  opacity: 0.5;
+}
+
+ /*HEADING CSS*/
+    header {
+      text-align: center;
+      padding: 20px;
     }
 
-    if (sexChosen === false) {
-        document.getElementById("sexError").innerHTML = "Please select your sex.";
-        isValid = false;
+    h1 {
+      font-size: 3rem;
+      color: white;
+      margin: 10px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
 
-    // Email checker
-    if (email.length === 0) {
-        document.getElementById("EmailError").innerHTML =
-            "Email is required.";
-        isValid = false;
+    h2 {
+      font-size: 1.5rem;
+      color: white;
+      margin: 10px 0;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
-    // Runs a for loop to check if the email contains "@" and ".". If it does, it will say error and set isValid to false.
-
-    for (let i = 0; i < email.length; i++) {
-        if (email[i] === "@") {
-            document.getElementById("EmailError").innerHTML ="Kindly enter a actual email address.";
-            isValid = false;
-        } 
-        if (email[i] === ".") {
-            document.getElementById("EmailError").innerHTML =   "Kindly enter a actual email address.";
-            isValid = false;
-        }
-
-    // ===== ACCOUNT DETAILS ==== 
-
-    // Username checker if username length is 0, less than 8, more than 20, or contains special characters. It will say error and set isValid to false.
-    if (username.length == 0) {
-        document.getElementById("UsernameError").innerHTML =  "Kindly input your username.";
-        isValid = false;
+ /*MAIN CONTENT CSS*/
+    main {
+      margin: 20px auto;
+      padding: 30px;
+      max-width: 500px;
+     background-color: rgba(98, 130, 88, 0.95); 
+     border: 3px solid #000;
+   border-radius: 10px;
+    color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
 
-    if (username.length < 8 || username.length > 20) {
-        document.getElementById("UsernameError").innerHTML =   "Username must be between 8 and 20 characters.";
-        isValid = false;
+    .form-label {
+      display: block;
+     font-size: 1.1rem;
+     margin-top: 2vh;
+   font-weight: bold;
     }
 
-    const pattern = /^[a-zA-Z0-9]+$/;
-    if (!pattern.test(username)) {
-        document.getElementById("UsernameError").innerHTML =
-            "Username may only contain letters and numbers.";
-        isValid = false;
+    .inputbox {
+      width: 100%;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+    }
+ /*TAKES ALL INPUT WITH RADIO TYPE FOR CSS*/
+    input[type="radio"].inputbox,
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+ /* TAKES ALL SPAN WITH CLASS "ERROR" FOR ERROR MESSAGE CSS */
+    span[class="Error"] {
+      color: #ee6d6d;
+      font-size: 0.9rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6.7px;
+    }
+ /*SUBMIT BUTTON CSS*/
+    #submitBtn {
+      margin-top: 20px;
+      background-color: #333;
+      color: white;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      transition: background-color 0.3s;
+       border: 1px solid #3c4b41;
     }
 
-    // Password
-    if (password.length == 0) {
-        document.getElementById("PasswordError").innerHTML =
-            "Password is required.";
-        isValid = false;
+    #submitBtn:hover {
+      background-color: #fafffc;
+      color: black;
+      border: 1px solid #000000;
+      
+    }
+ /*DISPLAYS SUCCESS MESSAGE AND HIDES IT UNTIL VALID*/
+    #successMsg {
+      display: none; /* Hidden until valid */
+      color: white;
+      background: rgba(119, 150, 119, 0.9);
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+      border: 2px solid #000000;
     }
 
-    if (password.length < 10) {
-        document.getElementById("PasswordError").innerHTML =
-            "Password must be at least 10 characters.";
-        isValid = false;
-    }
+ 
+ /*NAVBARSSS CSS took from past project*/
+  nav {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 15px;
+  background: white(126, 111, 111, 0.9);
+  border-radius: 12px;
+  position: relative;
+  z-index: 2;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+  background-color:#4f704d ;
+}
 
-    // If password does not contain an uppercase letter, it will say error and set isValid to false.
-    if (!/[A-Z]/.test(password)) {
-        document.getElementById("PasswordError").innerHTML =
-            "Password requires an uppercase letter.";
-        isValid = false;
-    }
 
-    // If password does not contain a lowercase letter, it will  say error and set isValid to false
-    if (!/[a-z]/.test(password)) {
-        document.getElementById("PasswordError").innerHTML =
-            "Password requires a lowercase letter.";
-        isValid = false;
-    }
+nav a {
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  padding: 8px 14px;
+  transition: all 0.3s ease;
+}
+nav a:hover {
+  background-color: #628258;
+  color: #fff;
+  border-radius: 8px;
+}
 
-    // If password does not contain a number, it will say error and set isValid to false
-    if (!/[0-9]/.test(password)) {
-        document.getElementById("PasswordError").innerHTML =
-            "Password requires a number.";
-        isValid = false;
-    }
+nav a.active {
+  text-align: center;
+  background-color: white ;
+  color: white;
+}
 
-    // Confirm Password
-    if (confirmPassword.length === 0) {
-        document.getElementById("confirmPasswordError").innerHTML =
-            "Kindly confirm your password.";
-        isValid = false;
-    }
-    // checks if password and confirm password are the same. If not, it will say error and set isValid to false.
-    if (password !== confirmPassword) {
-        document.getElementById("confirmPasswordError").innerHTML =
-            "Passwords do not match.";
-        isValid = false;
-    }
+nav a:hover {
+  transform: translateY(-3px);
+  background-color: #628258;
+}
 
-    // ===== TOPIC QUESTIONS ================================
-
-    // Dropdown
-    if (cuisine === "") {
-        document.getElementById("cuisineError").innerHTML =
-            "Kindly select a cuisine.";
-        isValid = false;
-    }
-
-    // Checkbox
-    const dietCheckboxes = document.getElementsByName("diet");
-    let isDietSelected = false;
-
-    for (let i = 0; i < dietCheckboxes.length; i++) {
-        if (dietCheckboxes[i].checked) {
-            isDietSelected = true;
-        }
-    }
-
-    if (!isDietSelected) {
-        document.getElementById("dietError").innerHTML =
-            "Select at least one dietary preference.";
-        isValid = false;
-    }
-
-    // Cook (radio)
-    const cookRadios = document.getElementsByName("cook");
-    let cookSelected = false;
-
-    for (let i = 0; i < cookRadios.length; i++) {
-        if (cookRadios[i].checked) {
-            cookSelected = true;
-        }
-    }
-
-    if (!cookSelected) {
-        document.getElementById("cookError").innerHTML =
-            "Select how many times you cook per week.";
-        isValid = false;
-    }
-    
-    // ===== FINAL RESULT ===============================
-
-    if (isValid = true ) {
-        document.getElementById("successMessage").innerHTML = "Signup successful! Eat well!";
-    }
-    }
-
-    return isValid;
+nav a:not(.active):hover {
+  box-shadow: 0 0 6px rgba(98, 130, 88, 0.8);
 }
